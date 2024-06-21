@@ -11,7 +11,7 @@ import SwiftUI
 struct GreenAVPlayerApp: App {
   var body: some Scene {
     WindowGroup {
-      VideoPlayerView(viewModel: .init(contentURL: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"))
+      ContentView()
     }
   }
 }

@@ -6,6 +6,31 @@
 //
 
 import SwiftUI
+import AVKit
+
+struct ContentView: View {
+  let videoURLs: [String] = [
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+  ]
+  
+  var body: some View {
+    ScrollView {
+      LazyVStack(spacing: 0) {
+        ForEach(videoURLs.indices, id: \.self) { index in
+          VideoPlayerView(viewModel: VideoPlayerViewModel(contentURL: videoURLs[index]))
+            .frame(height: UIScreen.main.bounds.height)
+        }
+      }
+    }
+    .ignoresSafeArea()
+    .onAppear {
+      UIScrollView.appearance().isPagingEnabled = true
+    }
+  }
+}
 
 public struct VideoPlayerView: View {
   @StateObject var viewModel: VideoPlayerViewModel
@@ -17,6 +42,10 @@ public struct VideoPlayerView: View {
         greenVideoPlayerViewModel.media = Media(
           url: viewModel.contentURL
         )
+        greenVideoPlayerViewModel.play()
+      }
+      .onDisappear {
+        greenVideoPlayerViewModel.pause()
       }
       .overlay(
         RetryView(
