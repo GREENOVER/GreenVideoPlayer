@@ -37,31 +37,44 @@ public struct VideoPlayerView: View {
   @StateObject private var greenVideoPlayerViewModel = GreenVideoPlayerViewModel()
   
   public var body: some View {
-    GreenVideoPlayer(viewModel: greenVideoPlayerViewModel)
-      .onAppear {
-        greenVideoPlayerViewModel.media = Media(
-          url: viewModel.contentURL
-        )
-        greenVideoPlayerViewModel.play()
-      }
-      .onDisappear {
-        greenVideoPlayerViewModel.pause()
-      }
-      .overlay(
-        RetryView(
-          title: "This video file could not be played",
-          remainingRetries: viewModel.remainingRetries,
-          perform: {
-            Task {
-              let canRetryPlay = await viewModel.retryPlayVideo()
-              if canRetryPlay {
-                greenVideoPlayerViewModel.play()
+    GeometryReader { geometry in
+      let isVisible = geometry.frame(in: .global).minY >= 0 && geometry.frame(in: .global).maxY <= UIScreen.main.bounds.height
+      
+      GreenVideoPlayer(viewModel: greenVideoPlayerViewModel)
+        .onAppear {
+          greenVideoPlayerViewModel.media = Media(url: viewModel.contentURL)
+          if isVisible {
+            greenVideoPlayerViewModel.play()
+          } else {
+            greenVideoPlayerViewModel.pause()
+          }
+        }
+        .onDisappear {
+          greenVideoPlayerViewModel.pause()
+        }
+        .onChange(of: isVisible) { newValue in
+          if newValue {
+            greenVideoPlayerViewModel.play()
+          } else {
+            greenVideoPlayerViewModel.pause()
+          }
+        }
+        .overlay(
+          RetryView(
+            title: "This video file could not be played",
+            remainingRetries: viewModel.remainingRetries,
+            perform: {
+              Task {
+                let canRetryPlay = await viewModel.retryPlayVideo()
+                if canRetryPlay {
+                  greenVideoPlayerViewModel.play()
+                }
               }
             }
-          }
+          )
+          .opacity(viewModel.canPlay ? 0 : 1)
         )
-        .opacity(viewModel.canPlay ? 0 : 1)
-      )
+    }
   }
 }
 
