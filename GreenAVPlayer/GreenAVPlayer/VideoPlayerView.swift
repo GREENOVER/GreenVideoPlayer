@@ -16,12 +16,21 @@ struct ContentView: View {
     "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
   ]
   
+  @State private var currentVisibleIndex: Int = 0
+  
   var body: some View {
     ScrollView {
       LazyVStack(spacing: 0) {
         ForEach(videoURLs.indices, id: \.self) { index in
-          VideoPlayerView(viewModel: VideoPlayerViewModel(contentURL: videoURLs[index]))
-            .frame(height: UIScreen.main.bounds.height)
+          VideoPlayerView(viewModel: VideoPlayerViewModel(contentURL: videoURLs[index]), isPlaying: Binding<Bool>(
+            get: { self.currentVisibleIndex == index },
+            set: { newValue in
+              if newValue {
+                self.currentVisibleIndex = index
+              }
+            })
+          )
+          .frame(height: UIScreen.main.bounds.height)
         }
       }
     }
@@ -29,21 +38,31 @@ struct ContentView: View {
     .onAppear {
       UIScrollView.appearance().isPagingEnabled = true
     }
+    .onChange(of: currentVisibleIndex) { newValue in
+      print("Current visible index: \(newValue)")
+    }
   }
 }
 
 public struct VideoPlayerView: View {
   @StateObject var viewModel: VideoPlayerViewModel
   @StateObject private var greenVideoPlayerViewModel = GreenVideoPlayerViewModel()
+  @Binding var isPlaying: Bool
   
   public var body: some View {
     GeometryReader { geometry in
-      let isVisible = geometry.frame(in: .global).minY >= 0 && geometry.frame(in: .global).maxY <= UIScreen.main.bounds.height
+      let frame = geometry.frame(in: .global)
+      let screenHeight = UIScreen.main.bounds.height
+      let midY = frame.midY
       
-      GreenVideoPlayer(viewModel: greenVideoPlayerViewModel)
+      Color.clear
         .onAppear {
           greenVideoPlayerViewModel.media = Media(url: viewModel.contentURL)
-          if isVisible {
+          greenVideoPlayerViewModel.play()
+        }
+        .onChange(of: midY) { newValue in
+          isPlaying = (midY > 0 && midY < screenHeight)
+          if isPlaying {
             greenVideoPlayerViewModel.play()
           } else {
             greenVideoPlayerViewModel.pause()
@@ -52,13 +71,9 @@ public struct VideoPlayerView: View {
         .onDisappear {
           greenVideoPlayerViewModel.pause()
         }
-        .onChange(of: isVisible) { newValue in
-          if newValue {
-            greenVideoPlayerViewModel.play()
-          } else {
-            greenVideoPlayerViewModel.pause()
-          }
-        }
+        .overlay(
+          GreenVideoPlayer(viewModel: greenVideoPlayerViewModel)
+        )
         .overlay(
           Button(action: { print(123123) }, label: { Text("gg")})
         )
