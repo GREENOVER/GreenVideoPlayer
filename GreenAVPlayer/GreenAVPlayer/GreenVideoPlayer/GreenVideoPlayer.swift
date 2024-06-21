@@ -30,7 +30,7 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
     viewModel: GreenVideoPlayerViewModel,
     isDisplayPlaybackControls: Bool = true,
     isRequireLinearPlayback: Bool = false,
-    videoGravity: AVLayerVideoGravity = .resizeAspect,
+    videoGravity: AVLayerVideoGravity = .resizeAspectFill,
     isAllowPIP: Bool = true,
     autorotate: Bool = true,
     interfaceMode: InterfaceOrientationMode = .all,
@@ -56,6 +56,7 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
     controller.delegate = context.coordinator
     controller.showsPlaybackControls = isDisplayPlaybackControls
     controller.requiresLinearPlayback = isRequireLinearPlayback
+    controller.showsPlaybackControls = false
     controller.videoGravity = videoGravity
     controller.allowsPictureInPicturePlayback = isAllowPIP
     controller.player?.allowsExternalPlayback = isAllowExternalPlayback

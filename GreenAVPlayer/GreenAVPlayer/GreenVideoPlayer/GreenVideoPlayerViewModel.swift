@@ -34,6 +34,7 @@ final public class GreenVideoPlayerViewModel: ObservableObject {
   // 영상 정지
   func pause() {
     player.pause()
+    player.seek(to: .zero)
   }
   
   // 영상 음소거

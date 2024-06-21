@@ -11,9 +11,9 @@ import AVKit
 struct ContentView: View {
   let videoURLs: [String] = [
     "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
   ]
   
   var body: some View {
@@ -59,6 +59,9 @@ public struct VideoPlayerView: View {
             greenVideoPlayerViewModel.pause()
           }
         }
+        .overlay(
+          Button(action: { print(123123) }, label: { Text("gg")})
+        )
         .overlay(
           RetryView(
             title: "This video file could not be played",
@@ -121,3 +124,7 @@ private struct RetryView: View {
     }
   }
 }
+
+// 스크롤 도중 영상 정지 되지 않게
+// 컨트롤러 바 크기 수정 + 비디오 뷰 크기 수정 확인
+// Lazy / isPage onAppear / onDisappear
