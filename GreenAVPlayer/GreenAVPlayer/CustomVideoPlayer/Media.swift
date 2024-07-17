@@ -1,6 +1,6 @@
 //
 //  Media.swift
-//  GreenAVPlayer
+//  CustomVideoPlayer
 //
 //  Created by GREEN on 2023/03/23.
 //

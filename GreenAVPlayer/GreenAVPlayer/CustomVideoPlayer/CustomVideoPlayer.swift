@@ -1,6 +1,6 @@
 //
-//  GreenVideoPlayer.swift
-//  GreenAVPlayer
+//  CustomVideoPlayer.swift
+//  CustomVideoPlayer
 //
 //  Created by GREEN on 2023/03/23.
 //
@@ -8,8 +8,8 @@
 import AVKit
 import SwiftUI
 
-public struct GreenVideoPlayer: UIViewControllerRepresentable {
-  @ObservedObject var viewModel: GreenVideoPlayerViewModel
+public struct CustomVideoPlayer: UIViewControllerRepresentable {
+  @ObservedObject var viewModel: CustomVideoPlayerViewModel
   
   /// 영상 재생 관련 컨트롤러 노출 및 동작 여부
   var isDisplayPlaybackControls: Bool
@@ -27,13 +27,13 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
   var isAllowExternalPlayback: Bool
   
   public init(
-    viewModel: GreenVideoPlayerViewModel,
+    viewModel: CustomVideoPlayerViewModel,
     isDisplayPlaybackControls: Bool = true,
     isRequireLinearPlayback: Bool = false,
     videoGravity: AVLayerVideoGravity = .resizeAspectFill,
-    isAllowPIP: Bool = true,
-    autorotate: Bool = true,
-    interfaceMode: InterfaceOrientationMode = .all,
+    isAllowPIP: Bool = false,
+    autorotate: Bool = false,
+    interfaceMode: InterfaceOrientationMode = .portrait,
     isAllowExternalPlayback: Bool = false
   ) {
     self.viewModel = viewModel
@@ -56,7 +56,6 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
     controller.delegate = context.coordinator
     controller.showsPlaybackControls = isDisplayPlaybackControls
     controller.requiresLinearPlayback = isRequireLinearPlayback
-    controller.showsPlaybackControls = false
     controller.videoGravity = videoGravity
     controller.allowsPictureInPicturePlayback = isAllowPIP
     controller.player?.allowsExternalPlayback = isAllowExternalPlayback
@@ -74,9 +73,9 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
   }
   
   public class Coordinator: NSObject, AVPlayerViewControllerDelegate {
-    let parent: GreenVideoPlayer
+    let parent: CustomVideoPlayer
     
-    public init(_ parent: GreenVideoPlayer) {
+    public init(_ parent: CustomVideoPlayer) {
       self.parent = parent
     }
     
@@ -115,7 +114,7 @@ class CustomAVPlayerViewController: AVPlayerViewController {
   
   init(
     autorotate: Bool = true,
-    interfaceMode: InterfaceOrientationMode = .all
+    interfaceMode: InterfaceOrientationMode = .portrait
   ) {
     self.autorotate = autorotate
     self.interfaceMode = interfaceMode

@@ -8,28 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		12102C0F29CC1E6900721462 /* GreenAVPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C0E29CC1E6900721462 /* GreenAVPlayerApp.swift */; };
-		12102C1129CC1E6900721462 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C1029CC1E6900721462 /* VideoPlayerView.swift */; };
+		12102C1129CC1E6900721462 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C1029CC1E6900721462 /* ContentView.swift */; };
 		12102C1329CC1E6A00721462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12102C1229CC1E6A00721462 /* Assets.xcassets */; };
 		12102C1629CC1E6A00721462 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12102C1529CC1E6A00721462 /* Preview Assets.xcassets */; };
-		12102C1E29CC1E9500721462 /* GreenVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C1D29CC1E9500721462 /* GreenVideoPlayer.swift */; };
-		12102C2229CC1F7100721462 /* GreenVideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2129CC1F7100721462 /* GreenVideoPlayerViewModel.swift */; };
+		12102C1E29CC1E9500721462 /* CustomVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C1D29CC1E9500721462 /* CustomVideoPlayer.swift */; };
+		12102C2229CC1F7100721462 /* CustomVideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2129CC1F7100721462 /* CustomVideoPlayerViewModel.swift */; };
 		12102C2429CC1F7700721462 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2329CC1F7700721462 /* Media.swift */; };
 		12102C2629CC1F7D00721462 /* PipStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2529CC1F7D00721462 /* PipStatus.swift */; };
-		12102C2829CC1FDB00721462 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2729CC1FDB00721462 /* VideoPlayerViewModel.swift */; };
+		12102C2829CC1FDB00721462 /* ShortsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2729CC1FDB00721462 /* ShortsViewModel.swift */; };
+		124E15392C473CB600D57439 /* ShortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E15382C473CB600D57439 /* ShortsView.swift */; };
+		124E153B2C4748D800D57439 /* PagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E153A2C4748D800D57439 /* PagingScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		12102C0B29CC1E6900721462 /* GreenAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreenAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12102C0E29CC1E6900721462 /* GreenAVPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenAVPlayerApp.swift; sourceTree = "<group>"; };
-		12102C1029CC1E6900721462 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		12102C1029CC1E6900721462 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		12102C1229CC1E6A00721462 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12102C1529CC1E6A00721462 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		12102C1D29CC1E9500721462 /* GreenVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenVideoPlayer.swift; sourceTree = "<group>"; };
+		12102C1D29CC1E9500721462 /* CustomVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayer.swift; sourceTree = "<group>"; };
 		12102C1F29CC1F4F00721462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		12102C2129CC1F7100721462 /* GreenVideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenVideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		12102C2129CC1F7100721462 /* CustomVideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		12102C2329CC1F7700721462 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		12102C2529CC1F7D00721462 /* PipStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipStatus.swift; sourceTree = "<group>"; };
-		12102C2729CC1FDB00721462 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		12102C2729CC1FDB00721462 /* ShortsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsViewModel.swift; sourceTree = "<group>"; };
+		124E15382C473CB600D57439 /* ShortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsView.swift; sourceTree = "<group>"; };
+		124E153A2C4748D800D57439 /* PagingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +68,10 @@
 			children = (
 				12102C1F29CC1F4F00721462 /* Info.plist */,
 				12102C0E29CC1E6900721462 /* GreenAVPlayerApp.swift */,
-				12102C1029CC1E6900721462 /* VideoPlayerView.swift */,
-				12102C2729CC1FDB00721462 /* VideoPlayerViewModel.swift */,
-				12102C1C29CC1E7B00721462 /* GreenVideoPlayer */,
+				12102C1029CC1E6900721462 /* ContentView.swift */,
+				124E153C2C4748E800D57439 /* CustomScroll */,
+				124E15372C473C5000D57439 /* Shorts */,
+				12102C1C29CC1E7B00721462 /* CustomVideoPlayer */,
 				12102C1229CC1E6A00721462 /* Assets.xcassets */,
 				12102C1429CC1E6A00721462 /* Preview Content */,
 			);
@@ -81,15 +86,32 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		12102C1C29CC1E7B00721462 /* GreenVideoPlayer */ = {
+		12102C1C29CC1E7B00721462 /* CustomVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				12102C1D29CC1E9500721462 /* GreenVideoPlayer.swift */,
-				12102C2129CC1F7100721462 /* GreenVideoPlayerViewModel.swift */,
+				12102C1D29CC1E9500721462 /* CustomVideoPlayer.swift */,
+				12102C2129CC1F7100721462 /* CustomVideoPlayerViewModel.swift */,
 				12102C2329CC1F7700721462 /* Media.swift */,
 				12102C2529CC1F7D00721462 /* PipStatus.swift */,
 			);
-			path = GreenVideoPlayer;
+			path = CustomVideoPlayer;
+			sourceTree = "<group>";
+		};
+		124E15372C473C5000D57439 /* Shorts */ = {
+			isa = PBXGroup;
+			children = (
+				12102C2729CC1FDB00721462 /* ShortsViewModel.swift */,
+				124E15382C473CB600D57439 /* ShortsView.swift */,
+			);
+			path = Shorts;
+			sourceTree = "<group>";
+		};
+		124E153C2C4748E800D57439 /* CustomScroll */ = {
+			isa = PBXGroup;
+			children = (
+				124E153A2C4748D800D57439 /* PagingScrollView.swift */,
+			);
+			path = CustomScroll;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,12 +184,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12102C2829CC1FDB00721462 /* VideoPlayerViewModel.swift in Sources */,
-				12102C1129CC1E6900721462 /* VideoPlayerView.swift in Sources */,
+				12102C2829CC1FDB00721462 /* ShortsViewModel.swift in Sources */,
+				124E15392C473CB600D57439 /* ShortsView.swift in Sources */,
+				12102C1129CC1E6900721462 /* ContentView.swift in Sources */,
 				12102C2629CC1F7D00721462 /* PipStatus.swift in Sources */,
-				12102C1E29CC1E9500721462 /* GreenVideoPlayer.swift in Sources */,
+				12102C1E29CC1E9500721462 /* CustomVideoPlayer.swift in Sources */,
 				12102C0F29CC1E6900721462 /* GreenAVPlayerApp.swift in Sources */,
-				12102C2229CC1F7100721462 /* GreenVideoPlayerViewModel.swift in Sources */,
+				12102C2229CC1F7100721462 /* CustomVideoPlayerViewModel.swift in Sources */,
+				124E153B2C4748D800D57439 /* PagingScrollView.swift in Sources */,
 				12102C2429CC1F7700721462 /* Media.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

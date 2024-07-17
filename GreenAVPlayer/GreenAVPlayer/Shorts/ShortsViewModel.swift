@@ -1,13 +1,13 @@
 //
-//  VideoPlayerViewModel.swift
-//  GreenAVPlayer
+//  ShortsViewModel.swift
+//  Shorts
 //
 //  Created by GREEN on 2023/03/23.
 //
 
 import AVKit
 
-final public class VideoPlayerViewModel: ObservableObject {
+final public class ShortsViewModel: ObservableObject {
   enum ContentType {
     case video
     case unknown
@@ -30,7 +30,7 @@ final public class VideoPlayerViewModel: ObservableObject {
 }
 
 // MARK: - Business Logic
-extension VideoPlayerViewModel {
+extension ShortsViewModel {
   // 동영상 확장자 체크
   private func filterByExtension(url: String) -> ContentType {
     let videoExtensions: [String] = [
