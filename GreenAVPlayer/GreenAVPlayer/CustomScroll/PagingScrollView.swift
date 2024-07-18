@@ -9,9 +9,14 @@ import SwiftUI
 
 // MARK: - 수직 스크롤 뷰
 public struct PagingScrollView<Content: View>: UIViewRepresentable {
-  var content: () -> Content
+  private var count: Int
+  private var content: () -> Content
   
-  init(@ViewBuilder content: @escaping () -> Content) {
+  public init(
+    count: Int,
+    @ViewBuilder content: @escaping () -> Content
+  ) {
+    self.count = count
     self.content = content
   }
   
@@ -42,6 +47,7 @@ public struct PagingScrollView<Content: View>: UIViewRepresentable {
       hostingController.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
       // 수직 스크롤을 위함
       hostingController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+      hostingController.view.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * CGFloat(count))
     ])
     
     return scrollView

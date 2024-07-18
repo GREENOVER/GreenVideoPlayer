@@ -71,29 +71,34 @@ struct ContentView: View {
   @State private var currentVisibleIndex: Int = 0
   
   var body: some View {
-    PagingScrollView {
+    PagingScrollView(count: videoURLs.count) {
       LazyVStack(spacing: 0) {
         ForEach(videoURLs.indices, id: \.self) { index in
-          VStack(spacing: 0) {
-            // 영상 해당 사이즈에 맞게 노출을 위한 스페이서
-            Spacer()
-              .frame(minHeight: 0)
-            
-            ShortsView(
-              viewModel: ShortsViewModel(contentURL: videoURLs[index]),
-              isPlaying: Binding<Bool>(
-                get: { self.currentVisibleIndex == index },
-                set: { newValue in
-                  if newValue {
-                    self.currentVisibleIndex = index
-                  }
-                }
-              )
-            )
-            
-            // 영상 해당 사이즈에 맞게 노출을 위한 스페이서
-            Spacer()
-              .frame(minHeight: 0)
+          GeometryReader { geometry in
+            if isViewVisible(geometry: geometry) {
+              VStack(spacing: 0) {
+                Spacer()
+                  .frame(minHeight: 0)
+                
+                ShortsView(
+                  viewModel: ShortsViewModel(contentURL: videoURLs[index]),
+                  isPlaying: Binding<Bool>(
+                    get: { self.currentVisibleIndex == index },
+                    set: { newValue in
+                      if newValue {
+                        self.currentVisibleIndex = index
+                      }
+                    }
+                  )
+                )
+                
+                Spacer()
+                  .frame(minHeight: 0)
+              }
+              .frame(height: UIScreen.main.bounds.height)
+            } else {
+              Color.clear.frame(height: UIScreen.main.bounds.height)
+            }
           }
           .frame(height: UIScreen.main.bounds.height)
         }
@@ -101,6 +106,11 @@ struct ContentView: View {
       .ignoresSafeArea()
     }
     .ignoresSafeArea()
+  }
+  
+  private func isViewVisible(geometry: GeometryProxy) -> Bool {
+    let frame = geometry.frame(in: .global)
+    return frame.intersects(UIScreen.main.bounds)
   }
 }
 
