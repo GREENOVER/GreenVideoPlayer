@@ -12,6 +12,7 @@ public struct ShortsView: View {
   @StateObject var viewModel: ShortsViewModel
   @StateObject private var customVideoPlayerViewModel: CustomVideoPlayerViewModel
   @Binding var isPlaying: Bool
+  @Environment(\.scenePhase) private var scenePhase
   
   init(
     viewModel: ShortsViewModel,
@@ -32,7 +33,6 @@ public struct ShortsView: View {
       Color.clear
         .onAppear {
           customVideoPlayerViewModel.loadMedia(url: URL(string: viewModel.contentURL)!)
-//          setupNotifications()
         }
         .onChange(of: midY) { newValue in
           let wasPlaying = isPlaying
@@ -47,9 +47,18 @@ public struct ShortsView: View {
             customVideoPlayerViewModel.pause()
           }
         }
+        .onChange(of: scenePhase) { newPhase in
+          switch newPhase {
+          case .active:
+            if isPlaying {
+              customVideoPlayerViewModel.play()
+            }
+          default:
+            break
+          }
+        }
         .onDisappear {
           customVideoPlayerViewModel.pause()
-//          removeNotifications()
         }
         .overlay(
           CustomVideoPlayer(viewModel: customVideoPlayerViewModel)
@@ -88,22 +97,6 @@ public struct ShortsView: View {
         )
     }
   }
-  
-//  private func setupNotifications() {
-//    NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { _ in
-//      customVideoPlayerViewModel.pause()
-//    }
-//    
-//    NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { _ in
-//      if isPlaying {
-//        customVideoPlayerViewModel.play()
-//      }
-//    }
-//  }
-//  
-//  private func removeNotifications() {
-//    NotificationCenter.default.removeObserver(self)
-//  }
 }
 
 // MARK: - 재시도 뷰

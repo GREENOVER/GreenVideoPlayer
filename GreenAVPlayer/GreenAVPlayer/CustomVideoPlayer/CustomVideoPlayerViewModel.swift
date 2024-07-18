@@ -23,14 +23,29 @@ final public class CustomVideoPlayerViewModel: ObservableObject {
       self.player = AVPlayer()
     }
     setAudioSessionCategory(to: .playback)
+    setupBackgroundPlayback()
   }
   
   private func setAudioSessionCategory(to value: AVAudioSession.Category) {
     let audioSession = AVAudioSession.sharedInstance()
     do {
-      try audioSession.setCategory(value)
+      try audioSession.setCategory(value, mode: .default, options: [.defaultToSpeaker, .mixWithOthers])
+      try audioSession.setActive(true)
     } catch {
       print("Setting category to AVAudioSessionCategoryPlayback failed.")
+    }
+  }
+  
+  private func setupBackgroundPlayback() {
+    do {
+      try AVAudioSession.sharedInstance().setCategory(
+        .playback,
+        mode: .default,
+        options: [.mixWithOthers, .defaultToSpeaker]
+      )
+      try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+      print("Failed to set audio session category.")
     }
   }
   
