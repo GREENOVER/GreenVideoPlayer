@@ -25,6 +25,7 @@ public struct PagingScrollView<Content: View>: UIViewRepresentable {
     scrollView.showsVerticalScrollIndicator = false
     scrollView.showsHorizontalScrollIndicator = false
     scrollView.contentInsetAdjustmentBehavior = .never
+    scrollView.bounces = false
     scrollView.delegate = context.coordinator
     
     let hostingController = context.coordinator.hostingController
