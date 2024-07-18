@@ -18,6 +18,7 @@ import AVKit
 //  ]
 //  
 //  @State private var currentVisibleIndex: Int = 0
+//  @StateObject private var prefetchManager = PrefetchManager()
 //  
 //  var body: some View {
 //    ScrollView(showsIndicators: false) {
@@ -37,7 +38,8 @@ import AVKit
 //                    self.currentVisibleIndex = index
 //                  }
 //                }
-//              )
+//              ),
+//              prefetchedPlayer: prefetchManager.getPlayer(for: videoURLs[index])
 //            )
 //            
 //            // 영상 해당 사이즈에 맞게 노출을 위한 스페이서
@@ -55,6 +57,9 @@ import AVKit
 //    .onDisappear {
 //      UIScrollView.appearance().isPagingEnabled = false
 //    }
+//    .onChange(of: currentVisibleIndex) { newIndex in
+//      prefetchManager.updatePrefetchIndex(currentIndex: newIndex, urls: videoURLs)
+//    }
 //  }
 //}
 
@@ -69,6 +74,7 @@ struct ContentView: View {
   ]
   
   @State private var currentVisibleIndex: Int = 0
+  @StateObject private var prefetchManager = PrefetchManager()
   
   var body: some View {
     PagingScrollView(count: videoURLs.count) {
@@ -89,7 +95,8 @@ struct ContentView: View {
                         self.currentVisibleIndex = index
                       }
                     }
-                  )
+                  ),
+                  prefetchedPlayer: prefetchManager.getPlayer(for: videoURLs[index])
                 )
                 
                 Spacer()
@@ -106,6 +113,9 @@ struct ContentView: View {
       .ignoresSafeArea()
     }
     .ignoresSafeArea()
+    .onChange(of: currentVisibleIndex) { newIndex in
+      prefetchManager.updatePrefetchIndex(currentIndex: newIndex, urls: videoURLs)
+    }
   }
   
   private func isViewVisible(geometry: GeometryProxy) -> Bool {
@@ -172,6 +182,3 @@ struct ContentView: View {
 //    }
 //  }
 //}
-
-
-// MARK: - 프리패칭

@@ -10,21 +10,19 @@ import Combine
 
 final public class CustomVideoPlayerViewModel: ObservableObject {
   @Published var pipStatus: PipStatus = .unowned
-  @Published var media: Media?
+  @Published var isLoading: Bool = false
+  @Published var error: Error?
   
-  let player = AVPlayer()
-  private var cancellable: AnyCancellable?
+  let player: AVPlayer
   private var playerItemStatusObserver: NSKeyValueObservation?
   
-  public init() {
+  init(prefetchedPlayer: AVPlayer?) {
+    if let prefetchedPlayer = prefetchedPlayer {
+      self.player = prefetchedPlayer
+    } else {
+      self.player = AVPlayer()
+    }
     setAudioSessionCategory(to: .playback)
-    cancellable = $media
-      .compactMap({ $0 })
-      .compactMap({ URL(string: $0.url) })
-      .sink(receiveValue: { [weak self] url in
-        guard let self = self else { return }
-        self.loadPlayerItem(url: url)
-      })
   }
   
   private func setAudioSessionCategory(to value: AVAudioSession.Category) {
@@ -36,38 +34,51 @@ final public class CustomVideoPlayerViewModel: ObservableObject {
     }
   }
   
-  private func loadPlayerItem(url: URL) {
-    DispatchQueue.global().async {
-      let asset = AVURLAsset(url: url)
-      let playerItem = AVPlayerItem(asset: asset)
-      DispatchQueue.main.async {
-        self.player.replaceCurrentItem(with: playerItem)
-        self.observePlayerItemStatus(playerItem: playerItem)
-      }
-    }
+  func loadMedia(url: URL) {
+    guard player.currentItem == nil else { return }
+    
+    isLoading = true
+    error = nil
+    
+    let asset = AVURLAsset(url: url)
+    let playerItem = AVPlayerItem(asset: asset)
+    
+    player.replaceCurrentItem(with: playerItem)
+    observePlayerItemStatus(playerItem: playerItem)
   }
   
   private func observePlayerItemStatus(playerItem: AVPlayerItem) {
     playerItemStatusObserver = playerItem.observe(\.status, options: [.new, .initial]) { [weak self] item, _ in
       guard let self = self else { return }
       if item.status == .readyToPlay {
-        self.player.play()
+        self.isLoading = false
+        if self.player.timeControlStatus != .playing {
+          self.player.play()
+        }
       } else if item.status == .failed {
-        print("Failed to load video: \(String(describing: item.error))")
+        self.isLoading = false
+        if let error = item.error {
+          self.error = error
+          print("Failed to load video: \(error.localizedDescription)")
+        } else {
+          print("Failed to load video: Unknown error")
+        }
       }
     }
   }
   
-  // 영상 재생
   func play() {
     if player.currentItem?.status == .readyToPlay {
       player.play()
     }
   }
   
-  // 영상 정지
   func pause() {
     player.pause()
+  }
+  
+  func resetAndPlay() {
     player.seek(to: .zero)
+    play()
   }
 }

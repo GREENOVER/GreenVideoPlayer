@@ -10,8 +10,18 @@ import AVKit
 
 public struct ShortsView: View {
   @StateObject var viewModel: ShortsViewModel
-  @StateObject private var customVideoPlayerViewModel = CustomVideoPlayerViewModel()
+  @StateObject private var customVideoPlayerViewModel: CustomVideoPlayerViewModel
   @Binding var isPlaying: Bool
+  
+  init(
+    viewModel: ShortsViewModel,
+    isPlaying: Binding<Bool>,
+    prefetchedPlayer: AVPlayer?
+  ) {
+    self._viewModel = StateObject(wrappedValue: viewModel)
+    self._isPlaying = isPlaying
+    self._customVideoPlayerViewModel = StateObject(wrappedValue: CustomVideoPlayerViewModel(prefetchedPlayer: prefetchedPlayer))
+  }
   
   public var body: some View {
     GeometryReader { geometry in
@@ -21,19 +31,25 @@ public struct ShortsView: View {
       
       Color.clear
         .onAppear {
-          customVideoPlayerViewModel.media = Media(url: viewModel.contentURL)
-          customVideoPlayerViewModel.play()
+          customVideoPlayerViewModel.loadMedia(url: URL(string: viewModel.contentURL)!)
+//          setupNotifications()
         }
         .onChange(of: midY) { newValue in
+          let wasPlaying = isPlaying
           isPlaying = (midY > 0 && midY < screenHeight)
           if isPlaying {
-            customVideoPlayerViewModel.play()
+            if !wasPlaying {
+              customVideoPlayerViewModel.resetAndPlay()
+            } else {
+              customVideoPlayerViewModel.play()
+            }
           } else {
             customVideoPlayerViewModel.pause()
           }
         }
         .onDisappear {
           customVideoPlayerViewModel.pause()
+//          removeNotifications()
         }
         .overlay(
           CustomVideoPlayer(viewModel: customVideoPlayerViewModel)
@@ -42,19 +58,16 @@ public struct ShortsView: View {
           VStack {
             HStack {
               Spacer()
-              
-              Button(
-                action: {
-                  UIApplication.shared.open(URL(string: "https://www.lifeplus.co.kr")!)
-                },
-                label: {
-                  Text("이동")
+              Button(action: {
+                if let url = URL(string: "https://www.lifeplus.co.kr") {
+                  UIApplication.shared.open(url)
                 }
-              )
-                .padding(.trailing, 20)
+              }, label: {
+                Text("이동")
+              })
+              .padding(.trailing, 20)
             }
             .padding(.top, 20)
-            
             Spacer()
           }
         )
@@ -66,7 +79,7 @@ public struct ShortsView: View {
               Task {
                 let canRetryPlay = await viewModel.retryPlayVideo()
                 if canRetryPlay {
-                  customVideoPlayerViewModel.play()
+                  customVideoPlayerViewModel.resetAndPlay()
                 }
               }
             }
@@ -75,6 +88,22 @@ public struct ShortsView: View {
         )
     }
   }
+  
+//  private func setupNotifications() {
+//    NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: .main) { _ in
+//      customVideoPlayerViewModel.pause()
+//    }
+//    
+//    NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { _ in
+//      if isPlaying {
+//        customVideoPlayerViewModel.play()
+//      }
+//    }
+//  }
+//  
+//  private func removeNotifications() {
+//    NotificationCenter.default.removeObserver(self)
+//  }
 }
 
 // MARK: - 재시도 뷰

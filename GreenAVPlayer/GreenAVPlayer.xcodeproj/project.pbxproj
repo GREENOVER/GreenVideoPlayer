@@ -18,6 +18,7 @@
 		12102C2829CC1FDB00721462 /* ShortsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12102C2729CC1FDB00721462 /* ShortsViewModel.swift */; };
 		124E15392C473CB600D57439 /* ShortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E15382C473CB600D57439 /* ShortsView.swift */; };
 		124E153B2C4748D800D57439 /* PagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E153A2C4748D800D57439 /* PagingScrollView.swift */; };
+		12C24FBE2C48D48E0053480C /* PrefetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C24FBD2C48D48E0053480C /* PrefetchManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		12102C2729CC1FDB00721462 /* ShortsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsViewModel.swift; sourceTree = "<group>"; };
 		124E15382C473CB600D57439 /* ShortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsView.swift; sourceTree = "<group>"; };
 		124E153A2C4748D800D57439 /* PagingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingScrollView.swift; sourceTree = "<group>"; };
+		12C24FBD2C48D48E0053480C /* PrefetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefetchManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				124E153C2C4748E800D57439 /* CustomScroll */,
 				124E15372C473C5000D57439 /* Shorts */,
 				12102C1C29CC1E7B00721462 /* CustomVideoPlayer */,
+				12C24FBC2C48D4780053480C /* PrefetchManager */,
 				12102C1229CC1E6A00721462 /* Assets.xcassets */,
 				12102C1429CC1E6A00721462 /* Preview Content */,
 			);
@@ -112,6 +115,14 @@
 				124E153A2C4748D800D57439 /* PagingScrollView.swift */,
 			);
 			path = CustomScroll;
+			sourceTree = "<group>";
+		};
+		12C24FBC2C48D4780053480C /* PrefetchManager */ = {
+			isa = PBXGroup;
+			children = (
+				12C24FBD2C48D48E0053480C /* PrefetchManager.swift */,
+			);
+			path = PrefetchManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +197,7 @@
 			files = (
 				12102C2829CC1FDB00721462 /* ShortsViewModel.swift in Sources */,
 				124E15392C473CB600D57439 /* ShortsView.swift in Sources */,
+				12C24FBE2C48D48E0053480C /* PrefetchManager.swift in Sources */,
 				12102C1129CC1E6900721462 /* ContentView.swift in Sources */,
 				12102C2629CC1F7D00721462 /* PipStatus.swift in Sources */,
 				12102C1E29CC1E9500721462 /* CustomVideoPlayer.swift in Sources */,
